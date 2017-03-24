@@ -16,3 +16,6 @@ print(v3)
 
 v4 = [v1[i] * v2[i] for i in range(len(v1))]
 print(v4)
+
+v5 = [x * 3 for x in v2 if x > 2]
+print(v5)
