@@ -7,10 +7,10 @@
 # Content: 
 
 class Person:
-    count = 0
+    count = 0 #类变量,静态变量
 
     def __init__(self, name, age):
-        self.name = name
+        self.name = name #self.name和self.age是实例变量
         self.age = age
         Person.count += 1
 
