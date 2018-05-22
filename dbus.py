@@ -7,7 +7,12 @@
 # Content: python调用dbus
 
 import dbus
-bus = dbus.SystemBus()
+# import dbus.decorators
+# import dbus.glib
+import gobject
+
+# bus = dbus.SystemBus()
+bus = dbus.SessionBus()
 bus_obj = bus.get_object('org.freedesktop.DBus', '/')
 iface = dbus.Interface(bus_obj, 'org.desktop.DBus')
 names = iface.ListActivatableNames()
