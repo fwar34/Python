@@ -11,12 +11,12 @@ import re
 import pymysql
 
 # 连接数据库
-db = pymysql.connect(host = '127.0.0.1', port = 3306, 
-        db = 'test', user = 'root', passwd = 'root', charset = 'utf-8')
+# db = pymysql.connect(host = '127.0.0.1', port = 3306, 
+        # db = 'test', user = 'root', passwd = 'root', charset = 'utf-8')
 # 创建游标
-cursor = db.cursor()
-cursor.execute("select * from images")
-print(cursor.fetchall())
+# cursor = db.cursor()
+# cursor.execute("select * from images")
+# print(cursor.fetchall())
 
 def getImageList(page = 1):
     # 获取网页源代码 content
