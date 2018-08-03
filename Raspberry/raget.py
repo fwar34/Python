@@ -84,5 +84,5 @@ if __name__ == '__main__':
     print('')  
     print('DISK Total Space = ' + str(DISK_total) + 'B')
     print('DISK Used Space = ' + str(DISK_used) + 'B')
-    print('DISK free Space = ' + str(DISK_free) + 'B')
+    print('DISK Free Space = ' + str(DISK_free) + 'B')
     print('DISK Used Percentage = ' + str(DISK_perc))
