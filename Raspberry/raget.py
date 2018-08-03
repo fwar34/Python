@@ -4,7 +4,7 @@
 # File Name: raget.py
 # Author: Feng
 # Created Time: Fri Aug  3 12:18:37 2018
-# Content: 
+# Content: http://shumeipai.nxez.com/2014/10/04/get-raspberry-the-current-status-and-data.html
 
 import os
 
@@ -38,6 +38,22 @@ def getDiskSpace():
         i = i + 1
         if (i == 2):
             return line.split()[1:5]
+
+# cpu温度获取这样写会不会更轻巧些
+# def getCPUtemperature():
+    # return os.popen( ‘/opt/vc/bin/vcgencmd measure_temp’  ).read()[5:9]
+# 或者直接读取系统自己的状态更新，省去模拟shell
+# def getCPUtemperature():
+    # with open( “/sys/class/thermal/thermal_zone0/temp”  ) as tempFile:
+        # res = tempFile.read()
+        # res=str(float(res)/1000)
+        # return res
+
+
+# 同理，getRaminfo()可以写成： return os.popen(‘free|tail -n +2’).readline().split()[1:4]
+# getDiskSpace()可以写成：return os.popen(‘df -h /|tail -n +2’).readline().split()[1:5]
+# popen的效率不高，但是配合shell相当灵活～～
+
 
 # Return % of CPU used by user as a character string 
 def getCPUuse():
