@@ -1,0 +1,217 @@
+./configure --with-features=huge \
+            --enable-multibyte \
+            --enable-rubyinterp=yes \
+            --enable-python3interp=yes \
+            --with-python3-config-dir=/usr/lib/python3.5/config-3.5m-arm-linux-gnueabihf \
+            --enable-perlinterp=yes \
+            --enable-luainterp=yes \
+            --enable-cscope \
+            --prefix=/usr/local
+			
+			
+ over：
+ /dev/mmcblk0:
+ Timing cached reads:   1472 MB in  2.00 seconds = 736.29 MB/sec
+ Timing buffered disk reads: 110 MB in  3.01 seconds =  36.60 MB/sec
+ 
+ 
+ not over：
+ /dev/mmcblk0:
+ Timing cached reads:   1446 MB in  2.00 seconds = 722.43 MB/sec
+ Timing buffered disk reads:  68 MB in  3.01 seconds =  22.56 MB/sec
+
+ 写
+# sync; echo 3 > /proc/sys/vm/drop_caches
+#
+# dd bs=1M count=500 if=/dev/zero of=test
+500+0 records in
+500+0 records out
+524288000 bytes (524 MB, 500 MiB) copied, 51.6382 s, 10.2 MB/s
+
+# sync; echo 3 > /proc/sys/vm/drop_caches
+#
+# dd bs=20k count=25600 if=/dev/zero of=test
+25600+0 records in
+25600+0 records out
+524288000 bytes (524 MB, 500 MiB) copied, 47.4211 s, 11.1 MB/s
+
+读
+# sync; echo 3 > /proc/sys/vm/drop_caches
+#
+# dd bs=20k count=4096 if=/dev/mmcblk0 of=/dev/null
+4096+0 records in
+4096+0 records out
+83886080 bytes (84 MB, 80 MiB) copied, 3.70017 s, 22.7 MB/s
+
+--------------------------------------------------------------------------------
+/dev/mmcblk0:
+ Timing buffered disk reads: 146 MB in  3.07 seconds =  47.58 MB/sec
+
+Running dd test...
+
+51200+0 records in
+51200+0 records out
+419430400 bytes (419 MB, 400 MiB) copied, 40.7992 s, 10.3 MB/s
+
+Running iozone test...
+	Iozone: Performance Test of File I/O
+	        Version $Revision: 3.434 $
+		Compiled for 32 bit mode.
+		Build: linux-arm
+
+	Contributors:William Norcott, Don Capps, Isom Crawford, Kirby Collins
+	             Al Slater, Scott Rhine, Mike Wisner, Ken Goss
+	             Steve Landherr, Brad Smith, Mark Kelly, Dr. Alain CYR,
+	             Randy Dunlap, Mark Montague, Dan Million, Gavin Brebner,
+	             Jean-Marc Zucconi, Jeff Blomberg, Benny Halevy, Dave Boone,
+	             Erik Habbinga, Kris Strecker, Walter Wong, Joshua Root,
+	             Fabrice Bacchella, Zhenghua Xue, Qin Li, Darren Sawyer,
+	             Vangel Bojaxhi, Ben England, Vikentsi Lapa,
+	             Alexey Skidanov.
+
+	Run began: Wed Aug  1 14:12:51 2018
+
+	Include fsync in write timing
+	O_DIRECT feature enabled
+	Auto Mode
+	File size set to 102400 kB
+	Record Size 4 kB
+	Command line used: ./iozone -e -I -a -s 100M -r 4k -i 0 -i 1 -i 2
+	Output is in kBytes/sec
+	Time Resolution = 0.000001 seconds.
+	Processor cache size set to 1024 kBytes.
+	Processor cache line size set to 32 bytes.
+	File stride size set to 17 * record size.
+                                                              random    random     bkwd    record    stride
+              kB  reclen    write  rewrite    read    reread    read     write     read   rewrite      read   fwrite frewrite    fread  freread
+          102400       4     1929     2081     7298     6739     6288      253
+
+iozone test complete.
+
+microSD card benchmark complete!
+
+
+---------------------------------------
+iozone -e -I -a -s 100M -r 4k -i 0 -i 1 -i 2 -f test
+	Iozone: Performance Test of File I/O
+	        Version $Revision: 3.434 $
+		Compiled for 32 bit mode.
+		Build: linux-arm
+
+	Contributors:William Norcott, Don Capps, Isom Crawford, Kirby Collins
+	             Al Slater, Scott Rhine, Mike Wisner, Ken Goss
+	             Steve Landherr, Brad Smith, Mark Kelly, Dr. Alain CYR,
+	             Randy Dunlap, Mark Montague, Dan Million, Gavin Brebner,
+	             Jean-Marc Zucconi, Jeff Blomberg, Benny Halevy, Dave Boone,
+	             Erik Habbinga, Kris Strecker, Walter Wong, Joshua Root,
+	             Fabrice Bacchella, Zhenghua Xue, Qin Li, Darren Sawyer,
+	             Vangel Bojaxhi, Ben England, Vikentsi Lapa,
+	             Alexey Skidanov.
+
+	Run began: Wed Aug  1 14:38:39 2018
+
+	Include fsync in write timing
+	O_DIRECT feature enabled
+	Auto Mode
+	File size set to 102400 kB
+	Record Size 4 kB
+	Command line used: iozone -e -I -a -s 100M -r 4k -i 0 -i 1 -i 2 -f test
+	Output is in kBytes/sec
+	Time Resolution = 0.000001 seconds.
+	Processor cache size set to 1024 kBytes.
+	Processor cache line size set to 32 bytes.
+	File stride size set to 17 * record size.
+                                                              random    random     bkwd    record    stride
+              kB  reclen    write  rewrite    read    reread    read     write     read   rewrite      read   fwrite frewrite    fread  freread
+          102400       4     2015     1972     7315     7314     6285      255
+
+iozone test complete.
+
+------------------------------------------------------------------]
+over：
+
+iozone -e -I -a -s 100M -r 4k -i 0 -i 1 -i 2 -f test
+	Iozone: Performance Test of File I/O
+	        Version $Revision: 3.434 $
+		Compiled for 32 bit mode.
+		Build: linux-arm
+
+	Contributors:William Norcott, Don Capps, Isom Crawford, Kirby Collins
+	             Al Slater, Scott Rhine, Mike Wisner, Ken Goss
+	             Steve Landherr, Brad Smith, Mark Kelly, Dr. Alain CYR,
+	             Randy Dunlap, Mark Montague, Dan Million, Gavin Brebner,
+	             Jean-Marc Zucconi, Jeff Blomberg, Benny Halevy, Dave Boone,
+	             Erik Habbinga, Kris Strecker, Walter Wong, Joshua Root,
+	             Fabrice Bacchella, Zhenghua Xue, Qin Li, Darren Sawyer,
+	             Vangel Bojaxhi, Ben England, Vikentsi Lapa,
+	             Alexey Skidanov.
+
+	Run began: Wed Aug  1 14:58:03 2018
+
+	Include fsync in write timing
+	O_DIRECT feature enabled
+	Auto Mode
+	File size set to 102400 kB
+	Record Size 4 kB
+	Command line used: iozone -e -I -a -s 100M -r 4k -i 0 -i 1 -i 2 -f test
+	Output is in kBytes/sec
+	Time Resolution = 0.000001 seconds.
+	Processor cache size set to 1024 kBytes.
+	Processor cache line size set to 32 bytes.
+	File stride size set to 17 * record size.
+                                                              random    random     bkwd    record    stride
+              kB  reclen    write  rewrite    read    reread    read     write     read   rewrite      read   fwrite frewrite    fread  freread
+          102400       4     1604     1748     8428     8428     6906      240
+
+iozone test complete.
+
+---------------------------------------------------------------------
+ubuntu64-rpi
+Running hdparm test...
+
+/dev/mmcblk0:
+ Timing buffered disk reads:  20 MB in  3.00 seconds =   6.66 MB/sec
+
+Running dd test...
+
+51200+0 records in
+51200+0 records out
+419430400 bytes (419 MB, 400 MiB) copied, 37.3559 s, 11.2 MB/s
+
+Running iozone test...
+	Iozone: Performance Test of File I/O
+	        Version $Revision: 3.434 $
+		Compiled for 64 bit mode.
+		Build: linux-arm
+
+	Contributors:William Norcott, Don Capps, Isom Crawford, Kirby Collins
+	             Al Slater, Scott Rhine, Mike Wisner, Ken Goss
+	             Steve Landherr, Brad Smith, Mark Kelly, Dr. Alain CYR,
+	             Randy Dunlap, Mark Montague, Dan Million, Gavin Brebner,
+	             Jean-Marc Zucconi, Jeff Blomberg, Benny Halevy, Dave Boone,
+	             Erik Habbinga, Kris Strecker, Walter Wong, Joshua Root,
+	             Fabrice Bacchella, Zhenghua Xue, Qin Li, Darren Sawyer,
+	             Vangel Bojaxhi, Ben England, Vikentsi Lapa,
+	             Alexey Skidanov.
+
+	Run began: Thu Aug  2 09:23:47 2018
+
+	Include fsync in write timing
+	O_DIRECT feature enabled
+	Auto Mode
+	File size set to 102400 kB
+	Record Size 4 kB
+	Command line used: ./iozone -e -I -a -s 100M -r 4k -i 0 -i 1 -i 2
+	Output is in kBytes/sec
+	Time Resolution = 0.000001 seconds.
+	Processor cache size set to 1024 kBytes.
+	Processor cache line size set to 32 bytes.
+	File stride size set to 17 * record size.
+                                                              random    random     bkwd    record    stride
+              kB  reclen    write  rewrite    read    reread    read     write     read   rewrite      read   fwrite frewrite    fread  freread
+          102400       4     1903     1838     6391     6609     5763      224
+
+iozone test complete.
+
+microSD card benchmark complete!
+
