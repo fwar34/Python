@@ -20,6 +20,9 @@ def getDisk():
 def getCpuUse():
     return os.popen('top -n1 | awk \'/Cpus/{print $0}\'').readline()
 
+def getCpuUse2():
+    return os.popen('top -n1 | tail -n +3').readline()
+
 cpu_temp = getTemp()
 
 
