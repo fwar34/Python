@@ -12,4 +12,4 @@ sock.bind(("localhost", 9999))
 
 while True:
     buff = sock.recv(1024)
-    print(buff)
+    print(str(buff, encoding = "utf-8"))

@@ -12,7 +12,7 @@ sock.settimeout(5)
 
 while True:
     buf = sock.recv(1024)
-    print(buf)
+    print(str(buf, encoding = "utf-8"))
     inp = input("输入:").strip()
     sock.send(bytes(inp, encoding = "utf-8"))
     if inp == "exit":
