@@ -15,6 +15,8 @@ def function():
         print("Thread %s >>>> %s" % (threading.current_thread().name, n))
         time.sleep(1)
     print("Thread %s end" % threading.current_thread().name)
+    name = 'Test.%s' % threading.current_thread().ident
+    print(name)
 
 print("Thread %s is running..." % threading.current_thread().name)
 t = threading.Thread(target = function, name = "my function")
