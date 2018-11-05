@@ -8,7 +8,7 @@
 import time, threading
 
 def function():
-    print("Thread %s is running..." % threading.current_thread().name)
+    print("Thread %s is running... %s" % (threading.current_thread().name, threading.current_thread().ident))
     n = 0
     while n < 5:
         n = n + 1
