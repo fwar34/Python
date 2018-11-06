@@ -5,7 +5,18 @@
 # Author: Feng
 # Created Time: Mon 05 Nov 2018 04:49:53 PM CST
 # Content: 
-import threading, socket, os
+import threading, socket, os, signal
+
+def sig_handler(signum, frame):
+    global files
+    for f in files:
+        os.remove(f)
+    print('Catch signal %s, delete test files' % signum)
+    exit(0)
+
+signal.signal(signal.SIGINT, sig_handler)
+signal.signal(signal.SIGTERM, sig_handler)
+signal.signal(signal.SIGHUP, sig_handler)
 
 files = []
 def thread_fun(conn):
