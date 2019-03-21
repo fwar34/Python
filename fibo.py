@@ -11,10 +11,7 @@ def fibo(n):
     while b < n:
         print(b)
         a, b = b, a + b
-
 fibo(10)
-
-
 
 def fib(n):    # write Fibonacci series up to n
     a, b = 0, 1

@@ -13,7 +13,7 @@ fs = sys.argv[1];
 old = sys.argv[2];
 new = sys.argv[3];
 
-print('process file {0} content \'{old}\' to new \'{new}\''.format(fs, old = old, new = new))
+print('process file {0} content \'{old}\' to new \'{new}\'' . format(fs, old = old, new = new))
 
 file1 = open(fs, 'r+')
 
