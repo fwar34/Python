@@ -33,4 +33,4 @@ def login():
     return render_template('index.html', form = my_form)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host = '0.0.0.0')
