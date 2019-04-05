@@ -61,7 +61,7 @@ for ele in users:
 
 name = input("enter your name:").strip()
 age = input("enter you age:").strip()
-sql_insert2 = 'insert into user (name,age) values ({},{})' . format(name, int(age))
+sql_insert2 = 'insert into user (name,age) values ("{}","{}")' . format(name, int(age))
 cursor.execute(sql_insert2)
 db.commit()
 
