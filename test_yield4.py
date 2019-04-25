@@ -1,4 +1,7 @@
+# https://blog.csdn.net/soonfly/article/details/78361819
+# 生成器一定是迭代器iterator，迭代器一定是可迭代对象iterabl
 # yield from
+# yield from iterable本质上等于for item in iterable: yield item的缩写版 
 def g1():
     yield range(5)  #yield就是将range这个可迭代对象直接返回了。
 
@@ -13,3 +16,5 @@ for x in it1:
 
 for x in it2:
     print(x)
+
+# 再强调一遍：yield from后面必须跟iterable对象(可以是生成器，迭代器)
