@@ -98,7 +98,7 @@ class TextField(Field):
     def __init__(self, name = None, default = None):
         super().__init__(name, 'text', False, default)
 
-class ModeMetaClass(type):
+class ModelMetaClass(type):
 
     def __new__(cls, name, bases, attrs):
         if name == 'Model':
@@ -123,3 +123,39 @@ class ModeMetaClass(type):
         for k in mappings.keys():
             attrs.pop(k)
         escaped_fields = list(map(lambda f: '`%s`' % f, fields))
+        attrs['__mappings__'] = mappings # 保存属性和列的映射关系
+        attrs['__table__'] = tableName
+        attrs['__primary_key__'] = primaryKey # 主键属性名
+        attrs['__fields__'] = fields # 除主键外的属性名
+        attrs['__select__'] = 'select `%s`, %s from `%s`' % (primaryKey, ', ' . join(escaped_fields), tableName)
+        attrs['__insert__'] = 'insert into `%s` (%s, `%s`) values (%s)' % (tableName, ', ' . join(escaped_fields), primaryKey, create_args_string(len(escaped_fields) + 1))
+        attrs['__update__'] = 'update `%s` set %s where `%s`=?' % (tableName, ', ' . join(map(lambda f: '`%s`=?' % (mappings.get(f).name or f), fields)), primaryKey)
+        attrs['__delete__'] = 'delete from `%s` where `%s`=?' % (tableName, primaryKey)
+        return type.__new__(cls, name, bases, attrs)
+
+class Model(dict, metaclass = ModelMetaClass):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def __getattr__(self, key):
+        try:
+            return self[key]
+        except KeyError:
+            raise AttributeError(r'"Model" object has no attribute "%s"' % key)
+
+    def __setattr__(self, key, value):
+        self[key] = value
+
+    def get_value(self, key):
+        return getattr(self, key, None)
+
+    def get_value_or_default(self, key):
+        value = getattr(self, key, None)
+        if value is None:
+            field = self.__mappings__[key]
+            if field.default is None:
+                value = field.default() if callable(field.default) else field.default
+                logging.debug('using default value for %s: %s' % (key, str(value)))
+                setattr(self, key, value)
+        return value
