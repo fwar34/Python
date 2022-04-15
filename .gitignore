@@ -3,4 +3,6 @@ workfile
 GTAGS
 GPATH
 GRTAGS
+TAGS
+tags
 *__pycache__*
