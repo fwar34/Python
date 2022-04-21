@@ -40,5 +40,6 @@ def parse1():
                 else:
                     f_process1.writelines([user_id, " 11:44:35\n"])
 
+
 if __name__ == "__main__":
     parse1()
