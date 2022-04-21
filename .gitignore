@@ -6,3 +6,4 @@ GRTAGS
 TAGS
 tags
 *__pycache__*
+**/qr_*.py
