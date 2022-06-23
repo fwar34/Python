@@ -14,6 +14,8 @@ it2 = g2()
 for x in it1:
     print(x)
 
+print('---------------')
+
 for x in it2:
     print(x)
 
