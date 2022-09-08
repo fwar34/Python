@@ -17,5 +17,14 @@ def parse():
         print(out)
 
 
+def parse_input():
+    nums = sys.argv[1:]
+    out = ""
+    for num in nums:
+        out += num[6:] + " " + num[4:6] + " " + num[2:4] + " " + num[0:2] + " "
+    print("convert output:\n" + out)
+
+
 if __name__ == '__main__':
-    parse()
+    # parse()
+    parse_input()
