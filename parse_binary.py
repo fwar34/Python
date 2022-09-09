@@ -18,10 +18,14 @@ def parse():
 
 
 def parse_input():
+    if len(sys.argv) == 1:
+        print("use: pb (input txt)")
+        return
     nums = sys.argv[1:]
     out = ""
     for num in nums:
-        out += num[6:] + " " + num[4:6] + " " + num[2:4] + " " + num[0:2] + " "
+        # out += num[6:] + " " + num[4:6] + " " + num[2:4] + " " + num[0:2] + " "
+        out += (num[6:] + " " if num[6:] else "") + (num[4:6] + " " if num[4:6] else "") + (num[2:4] + " " if num[2:4] else "") + (num[0:2] + " " if num[0:2] else "")
     print("convert output:\n" + out)
 
 
